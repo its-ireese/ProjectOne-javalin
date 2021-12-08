@@ -46,7 +46,7 @@ public class ReimbursementJdbcImpl implements ReimbursementDao {
 		logger.info("Exited addRequest() in dao.");
 		return reimbursementPojo;
 
-	}
+	}          
 	
 	@Override
 	public ReimbursementPojo approveRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException {
@@ -157,6 +157,7 @@ public class ReimbursementJdbcImpl implements ReimbursementDao {
 		logger.info("Exited getAllRequests() in dao.");
 		return allRequests;
 	}
+	
 	public List<ReimbursementPojo> getAllResolvedRequests() throws ApplicationException {
 		logger.info("Entered getAllResolvedRequests() in dao.");
 

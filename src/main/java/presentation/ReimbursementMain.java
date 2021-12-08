@@ -40,7 +40,7 @@ public class ReimbursementMain {
 		server.get("api/reimbursements", (ctx) -> {
 			ctx.json(reimbursementService.getAllRequests());
 		});
-		// watch code to get one book
+		
 		// get endpoint to fetch one request
 		server.get("api/reimbursements/{bid}", (ctx) -> {
 			ctx.json(reimbursementService.getARequest(Integer.parseInt(ctx.pathParam("bid"))));
@@ -108,18 +108,30 @@ public class ReimbursementMain {
 			System.out.println("Employee Resolved Reimbursements endpoint is requested!!");
 			ctx.json(reimbursementService.getAllEmpResolvedRequests(Integer.parseInt(ctx.pathParam("emp"))));
 		});
+		
+		// get endpoint to fetch all resolved for one employee
+		server.get("api/employee/{emp}reimbursement/status/true", (ctx) -> {
+			System.out.println("Employee Resolved Reimbursements endpoint is requested!!");
+			ctx.json(reimbursementService.getAllEmpResolvedRequests(Integer.parseInt(ctx.pathParam("emp"))));
+		});
 
 		// get endpoint to fetch all pending for one employee
 		server.get("api/reimbursements/employee/{emp}/status/false", (ctx) -> {
 			System.out.println("Employee Pending Reimbursements endpoint is requested!!");
 			ctx.json(reimbursementService.getAllEmpPendingRequests(Integer.parseInt(ctx.pathParam("emp"))));
 		});
+		
+		// get endpoint to fetch all pending for one employee
+				server.get("api/employee/{emp}/reimbursement/status/false", (ctx) -> {
+					System.out.println("Employee Pending Reimbursements endpoint is requested!!");
+					ctx.json(reimbursementService.getAllEmpPendingRequests(Integer.parseInt(ctx.pathParam("emp"))));
+				});
 		// get endpoint to get employee info
 		server.get("api/employee/{emp}", (ctx) -> {
 			ctx.json(employeeService.viewInfo(Integer.parseInt(ctx.pathParam("emp"))));
 		});
 
-		//
+		// 500
 		// validate User
 		server.post("api/users", (ctx) -> {
 			UsersPojo returnUsersPojo = usersService.validateUser(ctx.bodyAsClass(UsersPojo.class));

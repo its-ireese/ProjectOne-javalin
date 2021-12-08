@@ -24,7 +24,7 @@ public class UsersDaoImpl implements UsersDao{
 		try {
 			Connection conn = DataBase.makeConnection();
 			Statement stmt = conn.createStatement();
-			String query = "insert into users_details(username, password, usertype, user_first_name, user_last_name, user_address, user_contact, user_removed)" 
+			String query = "insert into employees_details(username, password, usertype, user_first_name, user_last_name, user_address, user_contact, user_removed)" 
 							+ "values('" + usersPojo.getUserName() +"','" + usersPojo.getUserPassword()+"','" + usersPojo.getUserType()+"','"
 							+"',"+usersPojo.isUserRemoved();
 			
@@ -46,8 +46,8 @@ public class UsersDaoImpl implements UsersDao{
 		try {
 			Connection conn = DataBase.makeConnection();
 			Statement stmt = conn.createStatement();
-			String query = "select * from employees_details where username="+usersPojo.getUserName()
-							+" and password='"+usersPojo.getUserPassword()+"' and user_removed=false";
+			String query = "select * from employees_details where username='"+usersPojo.getUserName()
+							+"' and password='"+usersPojo.getUserPassword()+"' and user_removed=false";
 			
 			ResultSet rs = stmt.executeQuery(query);
 			if(rs.next()) {
