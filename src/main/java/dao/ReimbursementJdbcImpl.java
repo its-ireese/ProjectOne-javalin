@@ -43,6 +43,7 @@ public class ReimbursementJdbcImpl implements ReimbursementDao {
 
 		}
 
+		
 		logger.info("Exited addRequest() in dao.");
 		return reimbursementPojo;
 
@@ -52,6 +53,7 @@ public class ReimbursementJdbcImpl implements ReimbursementDao {
 	public ReimbursementPojo approveRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException {
 		logger.info("Entered approveRequest() in dao.");
 
+		
 		
 		try {
 			Connection conn = DataBase.makeConnection();
