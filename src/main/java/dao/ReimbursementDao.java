@@ -8,6 +8,7 @@ public interface ReimbursementDao {
 	
 	ReimbursementPojo addRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException;
 	ReimbursementPojo updateRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException;
+	void updateARequest(int reimId) throws ApplicationException;
 	ReimbursementPojo approveRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException;
 	ReimbursementPojo denyRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException;
 	boolean deleteRequest(int reimId) throws ApplicationException;

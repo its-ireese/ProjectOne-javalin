@@ -3,9 +3,9 @@ package service;
 import java.util.List;
 
 import exception.ApplicationException;
-import pojo.EmployeePojo;
 import pojo.ManagerPojo;
 import pojo.ReimbursementPojo;
+import pojo.UsersPojo;
 
 public interface ManagerService {
 	ReimbursementPojo approveRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException;
@@ -18,6 +18,6 @@ public interface ManagerService {
 	List<ReimbursementPojo> getAllEmpRequests(int reimEmpId) throws ApplicationException;
 	List<ReimbursementPojo> getAllEmpResolvedRequests(int reimEmpId) throws ApplicationException;
 	List<ReimbursementPojo> getAllEmpPendingRequests(int reimEmpId) throws ApplicationException;
-	List<EmployeePojo> getAllEmployees() throws ApplicationException;
+	List<UsersPojo> getAllEmployees() throws ApplicationException;
 	
 }

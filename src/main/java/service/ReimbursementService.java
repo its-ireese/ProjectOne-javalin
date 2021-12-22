@@ -8,6 +8,7 @@ public interface ReimbursementService {
 	
 	ReimbursementPojo addRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException;
 	ReimbursementPojo updateRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException;
+	void updateARequest(int reimId) throws ApplicationException;
 	ReimbursementPojo approveRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException;
 	ReimbursementPojo denyRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException;
 	boolean deleteRequest(int reimId) throws ApplicationException;
@@ -18,5 +19,6 @@ public interface ReimbursementService {
 	List<ReimbursementPojo> getAllEmpResolvedRequests(int reimEmpId) throws ApplicationException;
 	List<ReimbursementPojo> getAllEmpPendingRequests(int reimEmpId) throws ApplicationException;
 	ReimbursementPojo getARequest(int reimId) throws ApplicationException;
-	void exitApplication(); 
+	void exitApplication();
+	
 }

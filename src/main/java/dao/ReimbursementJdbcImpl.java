@@ -54,7 +54,6 @@ public class ReimbursementJdbcImpl implements ReimbursementDao {
 		logger.info("Entered approveRequest() in dao.");
 
 		
-		
 		try {
 			Connection conn = DataBase.makeConnection();
 			Statement stmt = conn.createStatement();
@@ -107,6 +106,25 @@ public class ReimbursementJdbcImpl implements ReimbursementDao {
 
 		logger.info("Exited updateRequest() in dao.");
 		return reimbursementPojo;
+	}
+	
+
+	@Override
+	public void updateARequest(int reimId) throws ApplicationException {
+		logger.info("Entered updateRequest() in dao.");
+
+		try {
+			Connection conn = DataBase.makeConnection();
+			Statement stmt = conn.createStatement();
+			String query = "update reimbursement_details set reim_amount= " + reimbursementPojo.getReimAmount() + " where reim_id= "
+					+ reimId;
+
+			int rowsAffected = stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			throw new ApplicationException(e.getMessage());
+		}
+		logger.info("Exited updateRequest() in dao.");
+		
 	}
 
 	@Override
@@ -275,7 +293,7 @@ public class ReimbursementJdbcImpl implements ReimbursementDao {
 		try {
 			Connection conn = DataBase.makeConnection();
 			stmt = conn.createStatement();
-			String query = "select * from reimbursement_details where emp_id="+reimEmpId + "reim_status=true";
+			String query = "select * from reimbursement_details where emp_id="+reimEmpId + " and reim_status=true";
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
@@ -325,5 +343,6 @@ public class ReimbursementJdbcImpl implements ReimbursementDao {
 		DataBase.closeConnection();
 		logger.info("Exited exitApplication() in dao.");
 	}
+
 
 }

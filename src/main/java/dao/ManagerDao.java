@@ -3,7 +3,7 @@ package dao;
 import java.util.List;
 
 import exception.ApplicationException;
-import pojo.EmployeePojo;
+import pojo.UsersPojo;
 import pojo.ManagerPojo;
 import pojo.ReimbursementPojo;
 
@@ -19,7 +19,7 @@ public interface ManagerDao {
 	List<ReimbursementPojo> getAllEmpRequests(int reimEmpId) throws ApplicationException;
 	List<ReimbursementPojo> getAllEmpResolvedRequests(int reimEmpId) throws ApplicationException;
 	List<ReimbursementPojo> getAllEmpPendingRequests(int reimEmpId) throws ApplicationException;
-	List<EmployeePojo> getAllEmployees() throws ApplicationException;
+	List<UsersPojo> getAllEmployees() throws ApplicationException;
 	ReimbursementPojo getARequest(int reimId) throws ApplicationException;
 	void exitApplication();
 

@@ -9,6 +9,7 @@ import java.util.List;
 
 import exception.ApplicationException;
 import pojo.EmployeePojo;
+import pojo.UsersPojo;
 import pojo.ManagerPojo;
 import pojo.ReimbursementPojo;
 
@@ -229,21 +230,21 @@ public class ManagerDaoImpl implements ManagerDao {
 	}
 
 	@Override
-	public List<EmployeePojo> getAllEmployees() throws ApplicationException {
-		List<EmployeePojo> allEmployees = new ArrayList<EmployeePojo>();
+	public List<UsersPojo> getAllEmployees() throws ApplicationException {
+		List<UsersPojo> allEmployees = new ArrayList<UsersPojo>();
 
 		Statement stmt;
 		try {
 			Connection conn = DataBase.makeConnection();
 			stmt = conn.createStatement();
-			String query = "select * from employee_details";
+			String query = "select * from employees_details;";
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				EmployeePojo employeePojo = new EmployeePojo(rs.getInt(1), rs.getString(2), rs.getString(3),
-						rs.getString(4), rs.getString(5), rs.getBoolean(6));
+				UsersPojo usersPojo = new UsersPojo(rs.getInt(1), rs.getString(2), rs.getString(3),
+						rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getBoolean(9));
 
-				allEmployees.add(employeePojo);
+				allEmployees.add(usersPojo);
 
 			}
 		} catch (SQLException e) {

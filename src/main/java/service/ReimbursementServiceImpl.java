@@ -39,6 +39,14 @@ public class ReimbursementServiceImpl implements ReimbursementService{
 		return returnReimbursementPojo;
 		
 	}
+	
+	@Override
+	public void updateARequest(int reimId) throws ApplicationException  {
+		logger.info("Entered updateRequest() in service.");
+		this.reimbursementDao.updateARequest(reimId);
+		logger.info("Exited updateRequest() in service.");
+		
+	}
 
 	@Override
 	public ReimbursementPojo approveRequest(ReimbursementPojo reimbursementPojo) throws ApplicationException {

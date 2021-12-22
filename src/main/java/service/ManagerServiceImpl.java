@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import dao.ReimbursementDao;
 import exception.ApplicationException;
 import pojo.EmployeePojo;
+import pojo.UsersPojo;
 import pojo.ManagerPojo;
 import pojo.ReimbursementPojo;
 import dao.ReimbursementJdbcImpl;
@@ -95,8 +96,8 @@ ReimbursementDao reimbursementDao = new ReimbursementJdbcImpl();
 	}
 
 	@Override
-	public List<EmployeePojo> getAllEmployees() throws ApplicationException {
-		List<EmployeePojo> allEmployees = this.managerdao.getAllEmployees();
+	public List<UsersPojo> getAllEmployees() throws ApplicationException {
+		List<UsersPojo> allEmployees = this.managerdao.getAllEmployees();
 		return allEmployees;
 	}
 

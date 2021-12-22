@@ -66,10 +66,67 @@ public class UsersDaoImpl implements UsersDao{
 		return usersPojo;
 	}
 
+	
+
+//	@Override
+	public UsersPojo login(String userName, String userPassword) {
+		UsersPojo usersPojo = null;
+		
+		try {
+			Connection conn = DataBase.makeConnection();
+			Statement stmt = conn.createStatement();
+			String query = "select * from employees_details where username='"+usersPojo.getUserName()
+							+"' and password='"+usersPojo.getUserPassword()+"' and user_removed=false";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				usersPojo = new UsersPojo(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getBoolean(9));
+			}
+		} catch (SQLException e) {
+			logger.fatal("Login Failed with username " + userName);
+		}
+		
+		return usersPojo;
+	}
+
+	@Override
+	public UsersPojo updateInfo(UsersPojo usersPojo) throws ApplicationException {
+		try {
+			Connection conn = DataBase.makeConnection();
+			Statement stmt = conn.createStatement();
+			String query = "update employees_details set username= '"+usersPojo.getUserName()+
+					"', password='"+usersPojo.getUserPassword()+"', user_first_name='"+usersPojo.getUserFirstName()
+					+"', user_last_name='"+usersPojo.getUserLastName() +"', user_address='"+usersPojo.getUserAddress() +"',"
+							+ "user_contact= '" + usersPojo.getUserContact() + "' where employee_id= "
+					+ usersPojo.getUserId();
+
+			int rowsAffected = stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			throw new ApplicationException(e.getMessage());
+		}
+
+		return usersPojo;
+	}
+	@Override
+	public void update(int userId, String userName, String userPassword, String userFirstName,
+			String userLastName, String userAddress, String userContact) throws ApplicationException {
+		try {
+			Connection conn = DataBase.makeConnection();
+			Statement stmt = conn.createStatement();
+		String query = "update employees_details set username='"+userName+"', password='"+userPassword+"', user_first_name='"+userFirstName+
+				"', user_last_name='"+userLastName+"', user_address='"+userAddress+
+				"', user_contact='" + userContact+"' where employee_id=" + userId + ";";
+	    stmt.executeUpdate(query);
+	} catch (SQLException e) {
+		throw new ApplicationException(e.getMessage());
+		}
+	}
+	
 	@Override
 	public void exitApplication() {
 		DataBase.closeConnection();
 	}
+
+	
 
 
 }

@@ -40,7 +40,7 @@ public class ReimbursementMain {
 		server.get("api/reimbursements", (ctx) -> {
 			ctx.json(reimbursementService.getAllRequests());
 		});
-		
+
 		// get endpoint to fetch one request
 		server.get("api/reimbursements/{bid}", (ctx) -> {
 			ctx.json(reimbursementService.getARequest(Integer.parseInt(ctx.pathParam("bid"))));
@@ -52,24 +52,37 @@ public class ReimbursementMain {
 					.addRequest(ctx.bodyStreamAsClass(ReimbursementPojo.class));
 			ctx.json(returnReimbursementPojo);
 		});
+		// put endpoint to update request
+		server.put("api/reimbursements/update", (ctx) -> {
+			ReimbursementPojo returnReimbursementPojo = reimbursementService.updateRequest(ctx.bodyStreamAsClass(ReimbursementPojo.class));
+			ctx.json(returnReimbursementPojo);
+		});
+		// put endpoint to update a request
+//				server.put("api/reimbursements/{bid}/update", (ctx) -> {
+//					reimbursementService.updateARequest(Integer.parseInt(ctx.pathParam("bid")));
+//					
+//				});
+		
 		// delete endpoint to delete a request
 		server.delete("api/reimbursements/{bid}", (ctx) -> {
 			reimbursementService.deleteRequest(Integer.parseInt(ctx.pathParam("bid")));
 		});
-		
+
 		// put endpoint to deny request
 		server.put("api/reimbursements/approve/false", (ctx) -> {
 			System.out.println("Put endpoint called: " + ctx.body());
-			ReimbursementPojo returnReimbursementPojo = reimbursementService.denyRequest(ctx.bodyAsClass(ReimbursementPojo.class));
+			ReimbursementPojo returnReimbursementPojo = reimbursementService
+					.denyRequest(ctx.bodyAsClass(ReimbursementPojo.class));
 			ctx.json(returnReimbursementPojo);
 		});
 
 		// put endpoint to approve request
 		server.put("api/reimbursements/approve/true", (ctx) -> {
 			System.out.println("Put endpoint called: " + ctx.body());
-			ReimbursementPojo returnReimbursementPojo = reimbursementService.approveRequest(ctx.bodyAsClass(ReimbursementPojo.class));
+			ReimbursementPojo returnReimbursementPojo = reimbursementService
+					.approveRequest(ctx.bodyAsClass(ReimbursementPojo.class));
 			ctx.json(returnReimbursementPojo);
-	
+
 		});
 
 		// get endpoint to fetch all employee requests
@@ -108,9 +121,9 @@ public class ReimbursementMain {
 			System.out.println("Employee Resolved Reimbursements endpoint is requested!!");
 			ctx.json(reimbursementService.getAllEmpResolvedRequests(Integer.parseInt(ctx.pathParam("emp"))));
 		});
-		
+
 		// get endpoint to fetch all resolved for one employee
-		server.get("api/employee/{emp}reimbursement/status/true", (ctx) -> {
+		server.get("api/employee/{emp}/reimbursement/status/true", (ctx) -> {
 			System.out.println("Employee Resolved Reimbursements endpoint is requested!!");
 			ctx.json(reimbursementService.getAllEmpResolvedRequests(Integer.parseInt(ctx.pathParam("emp"))));
 		});
@@ -120,14 +133,24 @@ public class ReimbursementMain {
 			System.out.println("Employee Pending Reimbursements endpoint is requested!!");
 			ctx.json(reimbursementService.getAllEmpPendingRequests(Integer.parseInt(ctx.pathParam("emp"))));
 		});
-		
+
 		// get endpoint to fetch all pending for one employee
-				server.get("api/employee/{emp}/reimbursement/status/false", (ctx) -> {
-					System.out.println("Employee Pending Reimbursements endpoint is requested!!");
-					ctx.json(reimbursementService.getAllEmpPendingRequests(Integer.parseInt(ctx.pathParam("emp"))));
+		server.get("api/employee/{emp}/reimbursement/status/false", (ctx) -> {
+			System.out.println("Employee Pending Reimbursements endpoint is requested!!");
+			ctx.json(reimbursementService.getAllEmpPendingRequests(Integer.parseInt(ctx.pathParam("emp"))));
+		});
+		// get endpoint to fetch all request for one employee
+				server.get("api/employee/{emp}/reimbursement", (ctx) -> {
+					System.out.println("All Employee Reimbursements endpoint is requested!!");
+					ctx.json(reimbursementService.getAllEmpRequests(Integer.parseInt(ctx.pathParam("emp"))));
 				});
 		// get endpoint to get employee info
 		server.get("api/employee/{emp}", (ctx) -> {
+			ctx.json(employeeService.viewInfo(Integer.parseInt(ctx.pathParam("emp"))));
+		});
+
+		// get endpoint to get employee info
+		server.get("api/users/{emp}", (ctx) -> {
 			ctx.json(employeeService.viewInfo(Integer.parseInt(ctx.pathParam("emp"))));
 		});
 
@@ -139,12 +162,28 @@ public class ReimbursementMain {
 			ctx.json(returnUsersPojo);
 		});
 
+		//validate User
+		server.get("api/users/login/{username}/{password}", (ctx) -> {
+			ctx.json(usersService.login(ctx.pathParam("username"), ctx.pathParam("password")));
+			System.out.println("LOGIN REACHED");
+		});
+
 		// put endpoint to update employee information
 		// 500
-		server.put("api/employee/{emp}/update", (ctx) -> {
+		server.put("api/employee/{emp}/profile/update", (ctx) -> {
 			UsersPojo returnUsersPojo = employeeService.updateInfo(ctx.bodyAsClass(UsersPojo.class));
 			ctx.json(returnUsersPojo);
 		});
+
+		server.put("api/user/profile/update", (ctx) -> {
+			UsersPojo returnUsersPojo = usersService.updateInfo(ctx.bodyAsClass(UsersPojo.class));
+			ctx.json(returnUsersPojo);
+		});
+		// UPDATE EMPLOYEE INFO
+		server.put("api/user/{eid}", (ctx) -> {
+			 usersService.update(ctx.bodyAsClass(UsersPojo.class));
+		});
+		
 
 //		server.exception(ApplicationException.class, (ae, ctx) -> {
 //			ErrorPojo error = new ErrorPojo();
@@ -152,4 +191,5 @@ public class ReimbursementMain {
 //			ctx.json(error).status(500);
 //		});
 	}
+
 }
